@@ -9,17 +9,16 @@ class AbsensiMatkul extends Model
 {
     use HasFactory;
 
-    //belong to mahasiswa
-    public function mahasiswa()
+    //belongto
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class);
+    }
+
+    public function student()
     {
         return $this->belongsTo(User::class);
     }
 
-    //belong to matakuliah
-    public function matakuliah()
-    {
-        return $this->belongsTo(Subject::class);
-    }
 
-    
 }

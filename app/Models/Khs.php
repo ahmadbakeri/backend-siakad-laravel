@@ -9,17 +9,15 @@ class Khs extends Model
 {
     use HasFactory;
 
-    //belong to mahasiswa
-    public function mahasiswa()
+    //belongto
+
+    public function student()
     {
         return $this->belongsTo(User::class);
     }
 
-    //belong to matakuliah
-    public function matakuliah()
+    public function subject()
     {
         return $this->belongsTo(Subject::class);
     }
-
-    
 }

@@ -2,75 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ScheduleController extends Controller
 {
     //index
     public function index()
     {
-        //with pagination
-        $schedules = \App\Models\Schedule::paginate(10);
-        // $schedules = \App\Models\Schedule::all();
-        return view('pages.schedule.index', compact('schedules'));
+        $schedules = Schedule::paginate(10);
+        return view('pages.schedules.index', compact('schedules'));
     }
 
-    //show
-    public function show($id)
+    // function for generate qrcode input
+    public function generateQrCode(Schedule $schedule)
     {
-        $schedule = \App\Models\Schedule::find($id);
-        return view('pages.schedule.show', compact('schedule'));
+        return view('pages.schedules.input-qrcode')->with('schedule', $schedule);
     }
 
-    //create qrcode
-    public function createQrcode()
-    {
-        return view('pages.schedule.qrcode');
-    }
-
-    // //generate qrcode
-    public function generateQrcode(Request $request)
+    // function for generate qrcode and update code to Schedule
+    public function generateQrCodeUpdate(Request $request, Schedule $schedule)
     {
         $request->validate([
             'code' => 'required',
+        ]);
 
+
+        //update kode_absensi with code from input to schedule
+        $schedule->update([
+            'kode_absensi' => $request->code,
         ]);
 
         $code = $request->code;
 
-        return view('pages.schedule.show-qrcode', compact('code'));
-    }
 
-    //create
-    public function create()
-    {
-        return view('schedule.create');
-    }
+        return view('pages.schedules.show-qrcode', compact('code'))->with('success', 'Code updated successfully.');
 
-    //store
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required',
-            'lecturer_id' => 'required',
-            'semester' => 'required',
-            'tahun_akademik' => 'required',
-            'sks' => 'required',
-            'kode_matakuliah' => 'required',
-            'deskripsi' => 'required',
-        ]);
-
-        $schedule = new \App\Models\Schedule;
-        $schedule->title = $request->get('title');
-        $schedule->lecturer_id = $request->get('lecturer_id');
-        $schedule->semester = $request->get('semester');
-        $schedule->tahun_akademik = $request->get('tahun_akademik');
-        $schedule->sks = $request->get('sks');
-        $schedule->kode_matakuliah = $request->get('kode_matakuliah');
-        $schedule->deskripsi = $request->get('deskripsi');
-        $schedule->save();
-
-        return redirect()->route('schedule.index')->with('success', 'Schedule has been created successfully.');
+        // $schedule = Schedule::where('id', $request->id)->first();
+        // if ($schedule) {
+        //     $schedule->update([
+        //         'code' => $request->code,
+        //     ]);
+        //     return view('pages.schedules.input-qrcode', compact('schedule'))->with('success', 'Code updated successfully.');
+        // } else {
+        //     return redirect()->route('pages.schedules.index')->with('error', 'Code not found.');
+        // }
     }
 }

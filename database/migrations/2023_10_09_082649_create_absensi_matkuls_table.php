@@ -13,20 +13,23 @@ return new class extends Migration
     {
         Schema::create('absensi_matkuls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mahasiswa_id')->constrained('users');
-            $table->foreignId('matakuliah_id')->constrained('subjects');
-            $table->string('pertemuan');
-            $table->string('status');
-            $table->string('keterangan');
+            $table->foreignId('schedule_id')->constrained('schedules');
+            $table->foreignId('student_id')->constrained('users');
+            $table->string('kode_absensi');
             $table->string('tahun_akademik');
             $table->string('semester');
-            //absensi code
-            $table->string('kode_absensi');
-            //latlong
+            //pertemuan
+            $table->string('pertemuan');
+            //status
+            $table->string('status');
+            //keterangan
+            $table->string('keterangan')->nullable();
+            //latitude
             $table->string('latitude');
+            //longitude
             $table->string('longitude');
             //nilai
-            $table->string('nilai');
+            $table->string('nilai')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
             $table->string('deleted_by')->nullable();

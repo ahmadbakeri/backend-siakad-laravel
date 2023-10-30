@@ -16,18 +16,25 @@ class KhsFactory extends Factory
      */
     public function definition(): array
     {
+        // $table->foreignId('subject_id')->constrained('subjects');
+        //     $table->foreignId('student_id')->constrained('users');
+        //     $table->string('nilai');
+        //     //grade
+        //     $table->string('grade');
+        //     //keterangan
+        //     $table->string('keterangan')->nullable();
+        //     $table->string('tahun_akademik');
+        //     $table->string('semester');
         return [
-            'mahasiswa_id' => \App\Models\User::factory(),
-            'matakuliah_id' => \App\Models\Subject::factory(),
-            'nilai' => $this->faker->randomDigit(2),
-            'grade' => $this->faker->word,
-            'keterangan' => $this->faker->word,
-            'tahun_akademik' => $this->faker->word,
-            'semester' => $this->faker->randomDigit(1),
-            'status' => $this->faker->word,
-            'created_by' => $this->faker->word,
-            'updated_by' => $this->faker->word,
-            'deleted_by' => $this->faker->word,
+            'subject_id' => \App\Models\Subject::factory(),
+            'student_id' => \App\Models\User::factory(),
+            'nilai' => $this->faker->randomElement(['4', '3', '2', '1', '0']),
+            'grade' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E']),
+            'keterangan' => $this->faker->randomElement(['Lulus', 'Tidak Lulus']),
+            'tahun_akademik' => $this->faker->randomElement(['2021/2022', '2022/2023', '2023/2024']),
+            'semester' => $this->faker->randomElement(['Ganjil', 'Genap']),
+            'created_by' => $this->faker->randomElement(['1', '2', '3']),
+            'updated_by' => $this->faker->randomElement(['1', '2', '3']),
         ];
     }
 }

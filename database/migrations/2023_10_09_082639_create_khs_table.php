@@ -13,17 +13,19 @@ return new class extends Migration
     {
         Schema::create('khs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mahasiswa_id')->constrained('users');
-            $table->foreignId('matakuliah_id')->constrained('subjects');
+            $table->foreignId('subject_id')->constrained('subjects');
+            $table->foreignId('student_id')->constrained('users');
             $table->string('nilai');
+            //grade
             $table->string('grade');
-            $table->string('keterangan');
+            //keterangan
+            $table->string('keterangan')->nullable();
             $table->string('tahun_akademik');
             $table->string('semester');
-            $table->string('status');
             $table->string('created_by');
             $table->string('updated_by');
             $table->string('deleted_by')->nullable();
+
             $table->timestamps();
         });
     }

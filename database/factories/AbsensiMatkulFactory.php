@@ -16,21 +16,21 @@ class AbsensiMatkulFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            'mahasiswa_id' => \App\Models\User::factory(),
-            'matakuliah_id' => \App\Models\Subject::factory(),
-            'pertemuan' => $this->faker->word,
-            'status' => $this->faker->word,
-            'keterangan' => $this->faker->word,
-            'tahun_akademik' => $this->faker->word,
-            'semester' => $this->faker->randomDigit(1),
-            'kode_absensi' => $this->faker->word,
-            'latitude' => $this->faker->word,
-            'longitude' => $this->faker->word,
-            'nilai' => $this->faker->randomDigit(2),
-            'created_by' => $this->faker->word,
-            'updated_by' => $this->faker->word,
-            'deleted_by' => $this->faker->word,
+            'schedule_id' => \App\Models\Schedule::factory(),
+            'student_id' => \App\Models\User::factory(),
+            'kode_absensi' => $this->faker->randomElement(['A1', 'A2', 'A3', 'A4', 'A5', 'A6']),
+            'tahun_akademik' => $this->faker->randomElement(['2021/2022', '2022/2023', '2023/2024']),
+            'semester' => $this->faker->randomElement(['Ganjil', 'Genap']),
+            'pertemuan' => $this->faker->randomElement(['1', '2', '3', '4', '5', '6']),
+            'status' => $this->faker->randomElement(['Hadir', 'Tidak Hadir']),
+            'keterangan' => $this->faker->randomElement(['Sakit', 'Izin', 'Tanpa Keterangan']),
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
+            'nilai' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E']),
+            'created_by' => $this->faker->randomElement(['1', '2', '3']),
+            'updated_by' => $this->faker->randomElement(['1', '2', '3']),
         ];
     }
 }

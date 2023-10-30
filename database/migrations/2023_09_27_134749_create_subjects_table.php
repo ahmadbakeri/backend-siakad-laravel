@@ -18,13 +18,13 @@ return new class extends Migration
             //semester
             $table->string('semester');
             //tahun akademik
-            $table->string('tahun_akademik');
+            $table->string('academic_year');
             //sks
-            $table->string('sks');
+            $table->integer('sks');
             //kode matakuliah
-            $table->string('kode_matakuliah');
-            //description
-            $table->string('deskripsi');
+            $table->string('code');
+            //deskripsi
+            $table->text('description');
             $table->timestamps();
 
             $table->foreign('lecturer_id', 'lecturerid_foreign')->references('id')->on('users');
